@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.qugengting.foregroundservicedemo"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            keyAlias 'fangcuan'
+            keyPassword '3398829'
+            storeFile file('fangcuan.jks')
+            storePassword '3398829'
+        }
+        debug {
+            keyAlias 'fangcuan'
+            keyPassword '3398829'
+            storeFile file('fangcuan.jks')
+            storePassword '3398829'
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation files('libs/AMap_Location_V5.0.0_20200609.jar')
+    implementation project(path: ':net-library')
+}
